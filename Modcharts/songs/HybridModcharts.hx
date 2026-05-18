@@ -73,10 +73,10 @@ function loadActiveLoader() {
 
 	if (useLegacyLoader()) {
 		legacyLoaded = true;
-		importScript("data/scripts/loaders/vcLegacyModcharts.hx");
-		trace("vcHybridModcharts: using legacy old reader");
+		importScript("data/scripts/loaders/LegacyModcharts.hx");
+		trace("using legacy old reader");
 	} else {
-		trace("vcHybridModcharts: using new reader");
+		trace("using new reader");
 	}
 }
 
