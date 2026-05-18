@@ -45,10 +45,12 @@ public static var ITEM_EDIT_SAVED_INIT_EVENTS = null;
 public static var CURRENT_XML:Xml;
 var dragStartPos = null;
 var isDragging = false;
-// --- Stage camera drag ---
+// --- Stage camera (editor pan/zoom) ---
 var isDraggingStage:Bool = false;
-var stageDragStartMouse:FlxPoint = null;
-var stageDragStartScroll:FlxPoint = null;
+var stagePanLastMouse:FlxPoint = null;
+var editorCamZoom:Float = 1;
+inline static var EDITOR_CAM_ZOOM_MIN:Float = 0.25;
+inline static var EDITOR_CAM_ZOOM_MAX:Float = 3;
 function destroy() {
 	CURRENT_EVENT = null;
 	EVENT_EDIT_EVENT_SCRIPT = null;
@@ -450,6 +452,8 @@ function postCreate() {
 	if (stage.stageXML != null && stage.stageXML.exists("zoom")) {
 		defaultCamZoom = Std.parseFloat(stage.stageXML.get("zoom"));
 	}
+	editorCamZoom = defaultCamZoom;
+	initEditorCamera();
 
 	FlxG.mouse.visible = true;
 
@@ -739,8 +743,11 @@ function update(elapsed) {
 			_timelineScrollY = FlxMath.bound(_timelineScrollY, 0, Math.max(0, 30 + (ROW_SIZE_Y*timelineList.length) - 720/2.25));
 			camTimelineValueList.scroll.y = camTimeline.scroll.y = camTimelineList.scroll.y = CoolUtil.fpsLerp(camTimelineList.scroll.y, _timelineScrollY, 0.15);
 		}
-	} else {
-		if (!FlxG.sound.music.playing) {
+	} else if (!timelineWindow.hovered) {
+		if (FlxG.keys.pressed.CONTROL && FlxG.mouse.wheel != 0) {
+			editorCamZoom += FlxG.mouse.wheel * 0.1 * editorCamZoom;
+			editorCamZoom = FlxMath.bound(editorCamZoom, EDITOR_CAM_ZOOM_MIN, EDITOR_CAM_ZOOM_MAX);
+		} else if (!FlxG.sound.music.playing) {
 			Conductor.songPosition -= (__crochet*0.25 * (FlxG.keys.pressed.SHIFT ? 8.0 : 1.0) * FlxG.mouse.wheel) - Conductor.songOffset;
 		}
 	}
@@ -762,7 +769,8 @@ function update(elapsed) {
 		+ '\nBPM: ' + Conductor.bpm;
 
 
-	camGame.zoom = CoolUtil.fpsLerp(camGame.zoom, defaultCamZoom, 0.05);
+	if (!FlxG.sound.music.playing)
+		camGame.zoom = CoolUtil.fpsLerp(camGame.zoom, editorCamZoom, 0.15);
 	camHUD.zoom = CoolUtil.fpsLerp(camHUD.zoom, 1, 0.05);
 
 	updateEvents();
@@ -816,8 +824,74 @@ function updateUI() {
 	}
 	
 }
-var dragStartPos = null;
-var isDragging = false;
+function wantsStagePan():Bool {
+	return FlxG.mouse.pressedRight || (FlxG.mouse.pressed && FlxG.keys.pressed.ALT);
+}
+
+function stagePanJustStarted():Bool {
+	return FlxG.mouse.justPressedRight || (FlxG.mouse.justPressed && FlxG.keys.pressed.ALT);
+}
+
+function endStagePan() {
+	isDraggingStage = false;
+	stagePanLastMouse = null;
+}
+
+function updateStagePan() {
+	if (timelineWindow.hovered || _fullscreen) {
+		if (isDraggingStage) endStagePan();
+		return;
+	}
+
+	if (stagePanJustStarted()) {
+		stagePanLastMouse = FlxG.mouse.getScreenPosition();
+		isDraggingStage = true;
+		return;
+	}
+
+	if (!isDraggingStage || !wantsStagePan() || stagePanLastMouse == null) {
+		if (isDraggingStage) endStagePan();
+		return;
+	}
+
+	var mouse = FlxG.mouse.getScreenPosition();
+	var dx = mouse.x - stagePanLastMouse.x;
+	var dy = mouse.y - stagePanLastMouse.y;
+	if (dx != 0 || dy != 0) {
+		camGame.scroll.x -= dx;
+		camGame.scroll.y -= dy;
+		stagePanLastMouse.set(mouse.x, mouse.y);
+	}
+}
+
+function initEditorCamera() {
+	if (stage == null) return;
+
+	var focusX:Null<Float> = null;
+	var focusY:Null<Float> = null;
+
+	if (stage.stageXML != null) {
+		if (stage.stageXML.exists("startCamPosX"))
+			focusX = Std.parseFloat(stage.stageXML.get("startCamPosX"));
+		if (stage.stageXML.exists("startCamPosY"))
+			focusY = Std.parseFloat(stage.stageXML.get("startCamPosY"));
+	}
+
+	if (focusX == null || focusY == null) {
+		var bf = stage.characterPoses.get("boyfriend");
+		if (bf != null) {
+			if (focusX == null) focusX = bf.x + bf.camxoffset;
+			if (focusY == null) focusY = bf.y + bf.camyoffset;
+		}
+	}
+
+	if (focusX != null && focusY != null)
+		camGame.focusOn(FlxPoint.get(focusX, focusY));
+
+	editorCamZoom = defaultCamZoom;
+	camGame.zoom = editorCamZoom;
+}
+
 function updateInputs() {
 
 	if(FlxG.keys.justPressed.ANY && currentFocus == null)
@@ -825,40 +899,18 @@ function updateInputs() {
 
 	eventRenderer.visible = !_fullscreen;
 	if (_fullscreen) return;
-// ===============================
-// Right Click Stage Camera Drag
-// ===============================
 
-// Solo permitir si NO estamos sobre el timeline
-if (!timelineWindow.hovered)
-{
-    // Comenzar drag con click derecho
-    if (FlxG.mouse.justPressedRight)
-    {
-        isDraggingStage = true;
-        stageDragStartMouse = FlxG.mouse.getScreenPosition();
-        stageDragStartScroll = FlxPoint.get(camGame.scroll.x, camGame.scroll.y);
-    }
+	// Stage pan: right-click or Alt+left-drag (not over timeline)
+	if (!timelineWindow.hovered && wantsStagePan()) {
+		var zoom = camGame.zoom > 0 ? camGame.zoom : 1;
+		camGame.scroll.x -= FlxG.mouse.deltaX / zoom;
+		camGame.scroll.y -= FlxG.mouse.deltaY / zoom;
+		isDraggingStage = true;
+	} else if (isDraggingStage) {
+		isDraggingStage = false;
+	}
 
-    // Mientras se mantiene presionado
-    if (isDraggingStage && FlxG.mouse.pressedRight)
-    {
-        var currentMouse = FlxG.mouse.getScreenPosition();
-
-        var dx = currentMouse.x - stageDragStartMouse.x;
-        var dy = currentMouse.y - stageDragStartMouse.y;
-
-        camGame.scroll.x = stageDragStartScroll.x - dx;
-        camGame.scroll.y = stageDragStartScroll.y - dy;
-    }
-
-    // Soltar
-    if (FlxG.mouse.justReleasedRight)
-    {
-        isDraggingStage = false;
-    }
-}
-	scrollBar.active = !isDragging;
+	scrollBar.active = !isDragging && !isDraggingStage;
 	
 
 	//if (timelineWindow.hovered) {
