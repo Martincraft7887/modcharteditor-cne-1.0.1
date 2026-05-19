@@ -1,3 +1,4 @@
+Español
 # Cómo descargar
 
 Puedes descargar el proyecto presionando el botón verde Code y luego seleccionando Download ZIP o [dando click aqui](https://github.com/Martincraft7887/modcharteditor-cne-1.0.1/archive/refs/heads/main.zip)
@@ -109,3 +110,116 @@ Si quieres crear nuevos modifiers, puedes usar como base el shader:
 notePerspective
 
 ya que este es el encargado de definir el comportamiento de las notas.
+
+Ingles 
+# How to Download
+
+You can download the project by pressing the green Code button and then selecting Download ZIP or [clicking here](https://github.com/Martincraft7887/modcharteditor-cne-1.0.1/archive/refs/heads/main.zip)
+
+Once downloaded:
+
+Extract the .zip file  
+Place the folder inside mods in your Codename Engine installation.
+
+The path should look like this:
+
+Codename Engine/mods/modcharts
+
+If you want to include it inside your own mod, simply move the contents of this repository into your mod's mods folder.
+
+# Additional Information
+
+If you do not have basic knowledge of configuration in Codename Engine, you can modify the file:
+
+data/config/modpack.ini
+
+From there you can:
+
+Change the window name  
+Modify the application icon  
+Change the Discord RPC icon
+
+
+# How to Use
+
+Open Codename Engine  
+Press TAB to select the mod (if it is not active)  
+Go to:  
+Settings  
+Miscellaneous Options  
+Enable Developer Options
+
+![This](https://github.com/Martincraft7887/Things/blob/44ab769bf22ee8c1e4cf9b59cac79423b0cd5bab/TutorialImages/This.png)
+
+Return to the main menu  
+Press 7
+
+![There](https://github.com/Martincraft7887/Things/blob/44ab769bf22ee8c1e4cf9b59cac79423b0cd5bab/TutorialImages/There.png)
+
+Select Modchart Editor (it is located at the bottom)  
+Choose a song from your mod and start editing
+
+
+# Creating Modcharts by Difficulty
+
+If you want to use a different Modchart for each difficulty:
+
+Go to the song folder:
+
+YourMod/songs/YourSong/
+
+There you will find:
+
+modchart.xml
+
+![Modchart](https://github.com/Martincraft7887/Things/blob/d28a721f6cac7e4c254f0c7ba41ea0541d63eee3/TutorialImages/modchart.png)
+
+Rename it according to the difficulty:
+
+modchart-hard.xml
+
+![ModchartDif](https://github.com/Martincraft7887/Things/blob/d28a721f6cac7e4c254f0c7ba41ea0541d63eee3/TutorialImages/ModchartDif.png)
+
+You can also create other files such as:
+
+modchart-normal.xml  
+modchart-easy.xml  
+modchart-myDifficulty.xml
+
+The editor supports custom difficulties, so any name will work as long as it matches the song difficulty name.
+
+# How to Add Shaders and Modifiers
+
+Inside the editor:
+
+Modchart > Timeline Items
+
+![Here](https://github.com/Martincraft7887/Things/blob/44ab769bf22ee8c1e4cf9b59cac79423b0cd5bab/TutorialImages/Here.png)
+
+From there you can add:
+
+- Shaders
+- Note modifiers
+- FunkinModchartModifier
+
+# Shaders Folder
+
+Shaders must be placed in:
+
+shaders/modchart
+
+The default shaders are located in:
+
+addons/ModchartEditor-PostProcessShader/shaders/modcharts
+
+# Modifiers Folder
+
+Modifiers are located in:
+
+addons/ModchartEditor-GPUNotesModchart/modifiers
+
+If you want to create new modifiers, you can use the shader:
+
+notePerspective
+
+as a base, since it is responsible for defining the behavior of the notes.
