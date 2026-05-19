@@ -72,6 +72,7 @@ El editor soporta dificultades personalizadas, así que cualquier nombre funcion
 Dentro del editor:
 
 Modchart > Timeline Items
+
 ![TimeLineItems](TutorialImages/Here.png)
 
 Desde ahí podrás agregar:
