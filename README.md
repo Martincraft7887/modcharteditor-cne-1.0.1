@@ -15,7 +15,7 @@ Si deseas incluirlo dentro de tu propio mod, simplemente mueve el contenido de e
 
 # Información adicional
 
-Si no tienes conocimientos básicos de configuración, puedes modificar el archivo:
+Si no tienes conocimientos básicos de configuración en codename engine, puedes modificar el archivo:
 
 data/config/modpack.ini
 
@@ -34,8 +34,11 @@ Ve a:
 Configuración
 Opciones misceláneas
 Activa las opciones de desarrollador
+![DevMode](TutorialImages/This.png)
 Regresa al menú principal
 Presiona 7
+![ModchartEditor](TutorialImages/There.png)
+
 Selecciona Modchart Editor (se encuentra hasta abajo)
 Elige una canción de tu mod y comienza a editar
 
@@ -69,7 +72,7 @@ El editor soporta dificultades personalizadas, así que cualquier nombre funcion
 Dentro del editor:
 
 Modchart > Timeline Items
-
+![TimeLineItems](TutorialImages/Here.png)
 Desde ahí podrás agregar:
 
 Shaders
