@@ -20,7 +20,7 @@ The path should look like this:
 
 Codename Engine/mods/modcharts
 
-If you want to include it inside your own mod, simply move the contents of the folder into your mod's mods folder.
+If you want to include it inside your own mod, simply move the contents of the modcharts folder into your mod folder.
 
 # Additional Information
 
@@ -136,7 +136,7 @@ La ruta debería quedar así:
 
 Codename Engine/mods/modcharts
 
-Si deseas incluirlo dentro de tu propio mod, simplemente mueve el contenido de este repositorio a la carpeta mods de tu mod.
+Si deseas incluirlo dentro de tu propio mod, simplemente mueve el contenido de la carpeta modcharts a la carpeta de tu mod.
 
 # Información adicional
 
