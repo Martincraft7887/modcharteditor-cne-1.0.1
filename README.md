@@ -73,11 +73,12 @@ Dentro del editor:
 
 Modchart > Timeline Items
 ![TimeLineItems](TutorialImages/Here.png)
+
 Desde ahí podrás agregar:
 
-Shaders
-Modificadores de notas
-FunkinModchartModifier
+- Shaders
+- Modificadores de notas
+- FunkinModchartModifier
 
 # Carpeta de shaders
 
