@@ -1,6 +1,6 @@
 # Cómo descargar
 
-Puedes descargar el proyecto presionando el botón verde Code y luego seleccionando Download ZIP.
+Puedes descargar el proyecto presionando el botón verde Code y luego seleccionando Download ZIP o [dando click aqui](https://github.com/Martincraft7887/modcharteditor-cne-1.0.1/archive/refs/heads/main.zip)
 
 Una vez descargado:
 
