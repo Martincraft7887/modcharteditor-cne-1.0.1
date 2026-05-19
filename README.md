@@ -42,7 +42,7 @@ Press TAB to select the mod (if it is not active)
 Go to:  
 Settings  
 Miscellaneous Options  
-Enable Developer Options
+Enable Developer Mode
 
 ![This](https://github.com/Martincraft7887/Things/blob/44ab769bf22ee8c1e4cf9b59cac79423b0cd5bab/TutorialImages/This.png)
 
@@ -157,8 +157,8 @@ Abre Codename Engine
 Presiona TAB para seleccionar el mod (si no está activo)
 Ve a:
 Configuración
-Opciones misceláneas
-Activa las opciones de desarrollador
+Miscellaneous Options
+Activa el modo desarrollador
 
 ![This](https://github.com/Martincraft7887/Things/blob/44ab769bf22ee8c1e4cf9b59cac79423b0cd5bab/TutorialImages/This.png)
 
