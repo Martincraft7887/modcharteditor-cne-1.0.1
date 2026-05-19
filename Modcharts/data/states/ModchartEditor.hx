@@ -837,32 +837,6 @@ function endStagePan() {
 	stagePanLastMouse = null;
 }
 
-function updateStagePan() {
-	if (timelineWindow.hovered || _fullscreen) {
-		if (isDraggingStage) endStagePan();
-		return;
-	}
-
-	if (stagePanJustStarted()) {
-		stagePanLastMouse = FlxG.mouse.getScreenPosition();
-		isDraggingStage = true;
-		return;
-	}
-
-	if (!isDraggingStage || !wantsStagePan() || stagePanLastMouse == null) {
-		if (isDraggingStage) endStagePan();
-		return;
-	}
-
-	var mouse = FlxG.mouse.getScreenPosition();
-	var dx = mouse.x - stagePanLastMouse.x;
-	var dy = mouse.y - stagePanLastMouse.y;
-	if (dx != 0 || dy != 0) {
-		camGame.scroll.x -= dx;
-		camGame.scroll.y -= dy;
-		stagePanLastMouse.set(mouse.x, mouse.y);
-	}
-}
 
 function initEditorCamera() {
 	if (stage == null) return;
@@ -900,13 +874,33 @@ function updateInputs() {
 	eventRenderer.visible = !_fullscreen;
 	if (_fullscreen) return;
 
-	// Stage pan: right-click or Alt+left-drag (not over timeline)
+	// Stage pan
 	if (!timelineWindow.hovered && wantsStagePan()) {
-		var zoom = camGame.zoom > 0 ? camGame.zoom : 1;
-		camGame.scroll.x -= FlxG.mouse.deltaX / zoom;
-		camGame.scroll.y -= FlxG.mouse.deltaY / zoom;
-		isDraggingStage = true;
-	} else if (isDraggingStage) {
+
+		var mouse = FlxG.mouse.getScreenPosition();
+
+		if (!isDraggingStage) {
+			isDraggingStage = true;
+
+			if (stagePanLastMouse == null)
+				stagePanLastMouse = FlxPoint.get();
+
+			stagePanLastMouse.set(mouse.x, mouse.y);
+		}
+		else {
+			var zoom = camGame.zoom;
+			if (zoom <= 0) zoom = 0.001;
+
+			var dx = mouse.x - stagePanLastMouse.x;
+			var dy = mouse.y - stagePanLastMouse.y;
+
+			camGame.scroll.x -= dx / zoom;
+			camGame.scroll.y -= dy / zoom;
+
+			stagePanLastMouse.set(mouse.x, mouse.y);
+		}
+	}
+	else {
 		isDraggingStage = false;
 	}
 
