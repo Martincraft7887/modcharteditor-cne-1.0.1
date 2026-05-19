@@ -58,9 +58,13 @@ Ahí encontrarás:
 
 modchart.xml
 
+![Modchart](https://github.com/Martincraft7887/Things/blob/d28a721f6cac7e4c254f0c7ba41ea0541d63eee3/TutorialImages/modchart.png)
+
 Renómbralo según la dificultad:
 
 modchart-hard.xml
+
+![ModchartDif](https://github.com/Martincraft7887/Things/blob/d28a721f6cac7e4c254f0c7ba41ea0541d63eee3/TutorialImages/ModchartDif.png)
 
 También puedes crear otros archivos como:
 
