@@ -45,7 +45,7 @@ public static var ITEM_EDIT_SAVED_INIT_EVENTS = null;
 public static var CURRENT_XML:Xml;
 var dragStartPos = null;
 var isDragging = false;
-// --- Stage camera (editor pan/zoom) ---
+
 var isDraggingStage:Bool = false;
 var stagePanLastMouse:FlxPoint = null;
 var editorCamZoom:Float = 1;
