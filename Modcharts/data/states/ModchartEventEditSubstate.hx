@@ -117,7 +117,7 @@ function postCreate() {
 
 	EVENT_EDIT_EVENT_SCRIPT.call("setupEventWindow", [CURRENT_EVENT, propertyMap, eventEditWindowData]);
 
-	trace(CURRENT_EVENT);
+	//trace(CURRENT_EVENT);
 
 	var saveButton = new UIButton(windowSpr.x + windowSpr.bWidth - 20, windowSpr.y + windowSpr.bHeight - 16 - 32, "Save & Close", function() {
 		EVENT_EDIT_EVENT_SCRIPT.call("saveEventWindow", [CURRENT_EVENT, propertyMap]);
