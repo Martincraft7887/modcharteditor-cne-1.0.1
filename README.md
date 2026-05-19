@@ -34,10 +34,13 @@ Ve a:
 Configuración
 Opciones misceláneas
 Activa las opciones de desarrollador
-![DevMode](TutorialImages/This.png)
+
+![This](https://github.com/Martincraft7887/Things/blob/44ab769bf22ee8c1e4cf9b59cac79423b0cd5bab/TutorialImages/This.png)
+
 Regresa al menú principal
 Presiona 7
-![ModchartEditor](TutorialImages/There.png)
+
+![There](https://github.com/Martincraft7887/Things/blob/44ab769bf22ee8c1e4cf9b59cac79423b0cd5bab/TutorialImages/There.png)
 
 Selecciona Modchart Editor (se encuentra hasta abajo)
 Elige una canción de tu mod y comienza a editar
@@ -73,7 +76,7 @@ Dentro del editor:
 
 Modchart > Timeline Items
 
-![TimeLineItems](TutorialImages/Here.png)
+![Here](https://github.com/Martincraft7887/Things/blob/44ab769bf22ee8c1e4cf9b59cac79423b0cd5bab/TutorialImages/Here.png)
 
 Desde ahí podrás agregar:
 
