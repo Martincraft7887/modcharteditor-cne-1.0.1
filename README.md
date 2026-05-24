@@ -36,7 +36,7 @@ Change the Discord RPC icon
 
 
 # How to Use
-
+[Here](https://youtu.be/Or5PCoG4HkQ) you can see a tutorial vid 
 Open Codename Engine  
 Press TAB to select the mod (if it is not active)  
 Go to:  
@@ -152,6 +152,8 @@ Cambiar el ícono de Discord RPC
 
 
 # Cómo usar
+
+[Aqui](https://youtu.be/Or5PCoG4HkQ) puedes ver un video tutorial
 
 Abre Codename Engine
 Presiona TAB para seleccionar el mod (si no está activo)
